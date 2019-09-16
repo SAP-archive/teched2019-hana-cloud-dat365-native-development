@@ -1,0 +1,1 @@
+kubectl replace --force -f k8sDeployment.yaml -n capm

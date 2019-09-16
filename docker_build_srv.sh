@@ -1,0 +1,1 @@
+docker build -t thomasjung1/dat365-srv:latest -f srv/Dockerfile .

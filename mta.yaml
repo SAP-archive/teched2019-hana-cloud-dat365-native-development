@@ -1,0 +1,110 @@
+ID: dat365
+_schema-version: '2.1'
+description: DAT365
+parameters:
+  deploy_mode: html5-repo
+version: 0.1.0
+modules:
+  - name: dat365_appRouter
+    type: approuter.nodejs
+    path: dat365_appRouter
+    parameters:
+      disk-quota: 512M
+      memory: 256M
+    requires:
+      - name: dat365_html5_repo_runtime
+      - name: dat365-uaa
+      - name: srv_api
+        group: destinations
+        properties:
+          name: srv_api
+          url: '~{url}'
+          forwardAuthToken: true
+  - name: dat365_ui_deployer
+    type: com.sap.html5.application-content
+    path: dat365_ui_deployer
+    requires:
+      - name: dat365_html5_repo_host
+    build-parameters:
+      requires:
+        - name: ui
+          artifacts:
+            - './*'
+          target-path: resources/ui
+        - name: worklistUI
+          artifacts:
+            - './*'
+          target-path: resources/worklistUI
+  - name: dat365-srv
+    type: nodejs
+    path: srv
+    parameters:
+      memory: 512M
+      disk-quota: 512M
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: dat365-db-hdi-container
+      - name: dat365-uaa
+  - name: dat365-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: dat365-db-hdi-container
+        properties:
+          TARGET_CONTAINER: '~{hdi-container-name}'
+      - name: cross-container-service
+        group: SERVICE_REPLACEMENTS
+        properties:
+          key: ServiceName_1
+          service: '~{the-service-name}'
+  - name: ui
+    type: html5
+    path: ui
+    build-parameters:
+      builder: grunt
+  - name: worklistUI
+    type: html5
+    path: worklistUI
+    build-parameters:
+      builder: grunt
+resources:
+  - name: dat365_html5_repo_runtime
+    parameters:
+      service-plan: app-runtime
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: dat365_html5_repo_host
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: dat365-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: application
+      path: ./xs-security.json
+      service: xsuaa
+      config:
+        xsappname: 'dat365-${space}'
+        tenant-mode: dedicated
+  - name: dat365-db-hdi-container
+    type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: '${service-name}'
+  - name: dest_dat365
+    parameters:
+      service-plan: lite
+      service: destination
+    type: org.cloudfoundry.managed-service
+  - name: cross-container-service
+    parameters:
+      service-name: food-hdi
+    properties:
+      the-service-name: '${service-name}'
+    type: org.cloudfoundry.existing-service

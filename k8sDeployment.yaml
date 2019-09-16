@@ -1,0 +1,108 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dat365-srv
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dat365-srv
+        version: v1
+    spec:
+      containers:
+      # replace the repository URL with your own repository (e.g. {DockerID}/http-db-service:0.0.x for Docker Hub).
+      - image: thomasjung1/dat365-srv:latest
+        imagePullPolicy: Always
+        name: dat365-srv
+        ports:
+        - name: http
+          containerPort: 3100
+        resources:
+          limits:
+            memory: 1000Mi
+          requests:
+            memory: 32Mi
+        env:
+        - name: VCAP_SERVICES
+          valueFrom:
+            secretKeyRef:
+              name:  dat365-srv
+              key: VCAP_SERVICES
+        - name: TARGET_CONTAINER
+          valueFrom:
+            secretKeyRef:
+              name:  dat365-srv
+              key: TARGET_CONTAINER     
+
+
+---              
+apiVersion: v1
+kind: Service
+metadata:
+  name: dat365-srv
+  labels:
+    app: dat365-srv
+spec:
+  ports:
+  - port: 3100
+    name: http
+    targetPort: 3100
+  selector:
+    app: dat365-srv     
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dat365-web
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dat365-web
+        version: v1
+    spec:
+      containers:
+      # replace the repository URL with your own repository (e.g. {DockerID}/http-db-service:0.0.x for Docker Hub).
+      - image: thomasjung1/dat365-web:latest
+        imagePullPolicy: Always
+        name: dat365-web
+        ports:
+        - name: http
+          containerPort: 5000
+        resources:
+          limits:
+            memory: 1000Mi
+          requests:
+            memory: 32Mi
+        env:
+        - name: PORT
+          value: "5000"
+        - name: VCAP_SERVICES
+          valueFrom:
+            secretKeyRef:
+              name:  dat365-web
+              key: VCAP_SERVICES
+        - name: destinations
+          valueFrom:
+            secretKeyRef:
+              name:  dat365-web
+              key: destinations 
+
+---              
+apiVersion: v1
+kind: Service
+metadata:
+  name: dat365-web
+  labels:
+    app: dat365-web
+spec:
+  ports:
+  - port: 5000
+    name: http
+    targetPort: 5000
+  type: NodePort
+  selector:
+    app: dat365-web

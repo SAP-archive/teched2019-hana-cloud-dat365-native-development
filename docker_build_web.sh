@@ -1,0 +1,1 @@
+docker build -t thomasjung1/dat365-web:latest -f dat365_appRouter/Dockerfile .

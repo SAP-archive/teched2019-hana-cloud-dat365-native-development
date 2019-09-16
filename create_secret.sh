@@ -1,0 +1,2 @@
+kubectl create secret generic dat365-srv --namespace=capm --from-env-file <(jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ./srv/default-env.json)
+kubectl create secret generic dat365-web --namespace=capm --from-env-file <(jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ./dat365_appRouter/default-env.json)

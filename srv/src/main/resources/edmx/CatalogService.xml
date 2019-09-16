@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Foods" EntityType="CatalogService.Foods">
+          <NavigationPropertyBinding Path="DESC" Target="GradeDesc"/>
+        </EntitySet>
+        <EntitySet Name="GradeDesc" EntityType="CatalogService.GradeDesc"/>
+        <EntitySet Name="User" EntityType="CatalogService.User"/>
+      </EntityContainer>
+      <EntityType Name="Foods">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="CODE" Type="Edm.Int64"/>
+        <Property Name="URL" Type="Edm.String" MaxLength="500"/>
+        <Property Name="PRODUCT_NAME" Type="Edm.String" MaxLength="500"/>
+        <Property Name="BRANDS" Type="Edm.String"/>
+        <Property Name="COUNTRIES" Type="Edm.String"/>
+        <Property Name="INGREDIENTS_TEXT" Type="Edm.String"/>
+        <Property Name="SERVING_SIZE" Type="Edm.String" MaxLength="500"/>
+        <Property Name="SERVING_QUANTITY" Type="Edm.String" MaxLength="500"/>
+        <Property Name="NUTRITION_CLASS" Type="Edm.String" MaxLength="1"/>
+        <NavigationProperty Name="DESC" Type="CatalogService.GradeDesc">
+          <ReferentialConstraint Property="NUTRITION_CLASS" ReferencedProperty="CLASS"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="GradeDesc">
+        <Key>
+          <PropertyRef Name="CLASS"/>
+        </Key>
+        <Property Name="CLASS" Type="Edm.String" MaxLength="1" Nullable="false"/>
+        <Property Name="DESCRIPTION" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="User">
+        <Key>
+          <PropertyRef Name="id"/>
+        </Key>
+        <Property Name="id" Type="Edm.String" Nullable="false"/>
+        <Property Name="givenName" Type="Edm.String"/>
+        <Property Name="familyName" Type="Edm.String"/>
+        <Property Name="email" Type="Edm.String"/>
+        <Property Name="locale" Type="Edm.String"/>
+      </EntityType>
+      <Annotations Target="CatalogService.Foods">
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ID"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="CODE"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="URL"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="PRODUCT_NAME"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="BRANDS"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="COUNTRIES"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="INGREDIENTS_TEXT"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="SERVING_SIZE"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="SERVING_QUANTITY"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="NUTRITION_CLASS"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="DESC/DESCRIPTION"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.PresentationVariant">
+          <Record Type="UI.PresentationVariantType">
+            <PropertyValue Property="SortOrder">
+              <Collection>
+                <Record Type="Common.SortOrderType">
+                  <PropertyValue Property="Property" PropertyPath="DESC/DESCRIPTION"/>
+                  <PropertyValue Property="Descending" Bool="false"/>
+                </Record>
+                <Record Type="Common.SortOrderType">
+                  <PropertyValue Property="Property" PropertyPath="ID"/>
+                  <PropertyValue Property="Descending" Bool="false"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/Foods">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/ID">
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.Label" String="Food Identifier"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/CODE">
+        <Annotation Term="Common.Label" String="Unique Food Code"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/URL">
+        <Annotation Term="Common.Label" String="Food Details Link"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/PRODUCT_NAME">
+        <Annotation Term="Common.Label" String="Food Name"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/BRANDS">
+        <Annotation Term="Common.Label" String="Brands"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/COUNTRIES">
+        <Annotation Term="Common.Label" String="Country of Origin"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/INGREDIENTS_TEXT">
+        <Annotation Term="Common.Label" String="Ingredents"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/SERVING_SIZE">
+        <Annotation Term="Common.Label" String="Serving Size"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/SERVING_QUANTITY">
+        <Annotation Term="Common.Label" String="Serving Quantity"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Foods/NUTRITION_CLASS">
+        <Annotation Term="Common.Label" String="Nutrition Class"/>
+      </Annotations>
+      <Annotations Target="CatalogService.GradeDesc">
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="CLASS"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="DESCRIPTION"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.PresentationVariant">
+          <Record Type="UI.PresentationVariantType">
+            <PropertyValue Property="SortOrder">
+              <Collection>
+                <Record Type="Common.SortOrderType">
+                  <PropertyValue Property="Property" PropertyPath="CLASS"/>
+                  <PropertyValue Property="Descending" Bool="false"/>
+                </Record>
+                <Record Type="Common.SortOrderType">
+                  <PropertyValue Property="Property" PropertyPath="DESCRIPTION"/>
+                  <PropertyValue Property="Descending" Bool="false"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/GradeDesc">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.GradeDesc/CLASS">
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.Label" String="Nutrition Grade Class"/>
+      </Annotations>
+      <Annotations Target="CatalogService.GradeDesc/DESCRIPTION">
+        <Annotation Term="Common.Label" String="Nutrition Grade Description"/>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/User">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

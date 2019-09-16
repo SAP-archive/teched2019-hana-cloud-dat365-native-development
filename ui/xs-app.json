@@ -1,0 +1,28 @@
+{
+	"welcomeFile": "/index.html",
+	"authenticationMethod": "route",
+	"logout": {
+		"logoutEndpoint": "/do/logout"
+	},
+	"routes": [{
+		"source": "/catalog/(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/odata/v4/(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/node(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "^(.*)$",
+		"target": "$1",
+		"service": "html5-apps-repo-rt",
+		"authenticationType": "xsuaa"
+	}]
+}

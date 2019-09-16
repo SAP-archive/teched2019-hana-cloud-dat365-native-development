@@ -1,0 +1,14 @@
+{
+  "COMM_FOODS": {
+    "target": {
+      "object": "COMM_FOODS",
+      "grantor": "ServiceName_1"
+    }
+  },
+  "NUTRITION_SCORES": {
+    "target": {
+      "object": "NUTRITION_SCORES",
+      "grantor": "ServiceName_1"
+    }
+  }
+}

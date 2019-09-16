@@ -1,0 +1,10 @@
+{
+  "ServiceName_1": {
+    "object_owner" : {
+      "container_roles":["adminGrant#"]
+    },
+    "application_user" : {
+      "container_roles":["admin"]
+    }
+  }
+}

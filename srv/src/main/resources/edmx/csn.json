@@ -1,0 +1,480 @@
+{
+  "definitions": {
+    "CatalogService": {
+      "kind": "service"
+    },
+    "CatalogService.Foods": {
+      "kind": "entity",
+      "@Capabilities.DeleteRestrictions.Deletable": false,
+      "@Capabilities.InsertRestrictions.Insertable": false,
+      "@Capabilities.UpdateRestrictions.Updatable": false,
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "ID"
+          },
+          "@UI.Importance": {
+            "#": "High"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "CODE"
+          },
+          "@UI.Importance": {
+            "#": "Low"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "URL"
+          },
+          "@UI.Importance": {
+            "#": "High"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_NAME"
+          },
+          "@UI.Importance": {
+            "#": "High"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "BRANDS"
+          },
+          "@UI.Importance": {
+            "#": "High"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "COUNTRIES"
+          },
+          "@UI.Importance": {
+            "#": "Low"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "INGREDIENTS_TEXT"
+          },
+          "@UI.Importance": {
+            "#": "Medium"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "SERVING_SIZE"
+          },
+          "@UI.Importance": {
+            "#": "High"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "SERVING_QUANTITY"
+          },
+          "@UI.Importance": {
+            "#": "High"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "NUTRITION_CLASS"
+          },
+          "@UI.Importance": {
+            "#": "Low"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "DESC.DESCRIPTION"
+          },
+          "@UI.Importance": {
+            "#": "High"
+          }
+        }
+      ],
+      "@UI.PresentationVariant.SortOrder": [
+        {
+          "$Type": "Common.SortOrderType",
+          "Property": {
+            "=": "DESC.DESCRIPTION"
+          },
+          "Descending": false
+        },
+        {
+          "$Type": "Common.SortOrderType",
+          "Property": {
+            "=": "ID"
+          },
+          "Descending": false
+        }
+      ],
+      "@cds.persistence.name": "CATALOGSERVICE_FOODS",
+      "@readonly": true,
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "FOODS"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "ID": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "@Common.Label": "{i18n>id}",
+          "@Search.defaultSearchElement": true,
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "CODE": {
+          "@Common.Label": "{i18n>code}",
+          "@cds.persistence.name": "CODE",
+          "type": "cds.Integer64"
+        },
+        "URL": {
+          "@Common.Label": "{i18n>url}",
+          "@cds.persistence.name": "URL",
+          "type": "cds.String",
+          "length": 500
+        },
+        "PRODUCT_NAME": {
+          "@Common.Label": "{i18n>product_name}",
+          "@cds.persistence.name": "PRODUCT_NAME",
+          "type": "cds.String",
+          "length": 500
+        },
+        "BRANDS": {
+          "@Common.Label": "{i18n>brands}",
+          "@cds.persistence.name": "BRANDS",
+          "type": "cds.String"
+        },
+        "COUNTRIES": {
+          "@Common.Label": "{i18n>countries}",
+          "@cds.persistence.name": "COUNTRIES",
+          "type": "cds.String"
+        },
+        "INGREDIENTS_TEXT": {
+          "@Common.Label": "{i18n>ingredients}",
+          "@cds.persistence.name": "INGREDIENTS_TEXT",
+          "type": "cds.String"
+        },
+        "SERVING_SIZE": {
+          "@Common.Label": "{i18n>serving_size}",
+          "@cds.persistence.name": "SERVING_SIZE",
+          "type": "cds.String",
+          "length": 500
+        },
+        "SERVING_QUANTITY": {
+          "@Common.Label": "{i18n>serving_quantity}",
+          "@cds.persistence.name": "SERVING_QUANTITY",
+          "type": "cds.String",
+          "length": 500
+        },
+        "NUTRITION_CLASS": {
+          "@Common.Label": "{i18n>nutrition_class}",
+          "@cds.persistence.name": "NUTRITION_CLASS",
+          "type": "cds.String",
+          "length": 1
+        },
+        "DESC": {
+          "@cds.persistence.name": "DESC",
+          "type": "cds.Association",
+          "target": "CatalogService.GradeDesc",
+          "on": [
+            {
+              "ref": [
+                "DESC",
+                "CLASS"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "NUTRITION_CLASS"
+              ]
+            }
+          ]
+        }
+      },
+      "$syntax": "projection"
+    },
+    "CatalogService.GradeDesc": {
+      "kind": "entity",
+      "@Capabilities.DeleteRestrictions.Deletable": false,
+      "@Capabilities.InsertRestrictions.Insertable": false,
+      "@Capabilities.UpdateRestrictions.Updatable": false,
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "CLASS"
+          },
+          "@UI.Importance": {
+            "#": "High"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "DESCRIPTION"
+          },
+          "@UI.Importance": {
+            "#": "High"
+          }
+        }
+      ],
+      "@UI.PresentationVariant.SortOrder": [
+        {
+          "$Type": "Common.SortOrderType",
+          "Property": {
+            "=": "CLASS"
+          },
+          "Descending": false
+        },
+        {
+          "$Type": "Common.SortOrderType",
+          "Property": {
+            "=": "DESCRIPTION"
+          },
+          "Descending": false
+        }
+      ],
+      "@cds.persistence.name": "CATALOGSERVICE_GRADEDESC",
+      "@readonly": true,
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "teched.dat365.NUTRITION_GRADE_DESC"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "CLASS": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "@Common.Label": "{i18n>class}",
+          "@Search.defaultSearchElement": true,
+          "@cds.persistence.name": "CLASS",
+          "key": true,
+          "type": "cds.String",
+          "length": 1
+        },
+        "DESCRIPTION": {
+          "@Common.Label": "{i18n>description}",
+          "@cds.persistence.name": "DESCRIPTION",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "CatalogService.User": {
+      "kind": "entity",
+      "@Capabilities.DeleteRestrictions.Deletable": false,
+      "@Capabilities.InsertRestrictions.Insertable": false,
+      "@Capabilities.UpdateRestrictions.Updatable": false,
+      "@cds.persistence.name": "CATALOGSERVICE_USER",
+      "@readonly": true,
+      "@requires": "authenticated-user",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "teched.dat365.user"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.String"
+        },
+        "givenName": {
+          "@cds.persistence.name": "GIVENNAME",
+          "type": "cds.String"
+        },
+        "familyName": {
+          "@cds.persistence.name": "FAMILYNAME",
+          "type": "cds.String"
+        },
+        "email": {
+          "@cds.persistence.name": "EMAIL",
+          "type": "cds.String"
+        },
+        "locale": {
+          "@cds.persistence.name": "LOCALE",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "FOODS": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "@cds.persistence.name": "FOODS",
+      "elements": {
+        "ID": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "@Common.Label": "{i18n>id}",
+          "@Search.defaultSearchElement": true,
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "CODE": {
+          "@Common.Label": "{i18n>code}",
+          "@cds.persistence.name": "CODE",
+          "type": "cds.Integer64"
+        },
+        "URL": {
+          "@Common.Label": "{i18n>url}",
+          "@cds.persistence.name": "URL",
+          "type": "cds.String",
+          "length": 500
+        },
+        "PRODUCT_NAME": {
+          "@Common.Label": "{i18n>product_name}",
+          "@cds.persistence.name": "PRODUCT_NAME",
+          "type": "cds.String",
+          "length": 500
+        },
+        "BRANDS": {
+          "@Common.Label": "{i18n>brands}",
+          "@cds.persistence.name": "BRANDS",
+          "type": "cds.String"
+        },
+        "COUNTRIES": {
+          "@Common.Label": "{i18n>countries}",
+          "@cds.persistence.name": "COUNTRIES",
+          "type": "cds.String"
+        },
+        "INGREDIENTS_TEXT": {
+          "@Common.Label": "{i18n>ingredients}",
+          "@cds.persistence.name": "INGREDIENTS_TEXT",
+          "type": "cds.String"
+        },
+        "SERVING_SIZE": {
+          "@Common.Label": "{i18n>serving_size}",
+          "@cds.persistence.name": "SERVING_SIZE",
+          "type": "cds.String",
+          "length": 500
+        },
+        "SERVING_QUANTITY": {
+          "@Common.Label": "{i18n>serving_quantity}",
+          "@cds.persistence.name": "SERVING_QUANTITY",
+          "type": "cds.String",
+          "length": 500
+        },
+        "NUTRITION_CLASS": {
+          "@Common.Label": "{i18n>nutrition_class}",
+          "@cds.persistence.name": "NUTRITION_CLASS",
+          "type": "cds.String",
+          "length": 1
+        },
+        "DESC": {
+          "@cds.persistence.name": "DESC",
+          "type": "cds.Association",
+          "target": "teched.dat365.NUTRITION_GRADE_DESC",
+          "on": [
+            {
+              "ref": [
+                "DESC",
+                "CLASS"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "NUTRITION_CLASS"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "teched.dat365.NUTRITION_GRADE_DESC": {
+      "kind": "entity",
+      "@cds.persistence.name": "TECHED_DAT365_NUTRITION_GRADE_DESC",
+      "elements": {
+        "CLASS": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "@Common.Label": "{i18n>class}",
+          "@Search.defaultSearchElement": true,
+          "@cds.persistence.name": "CLASS",
+          "key": true,
+          "type": "cds.String",
+          "length": 1
+        },
+        "DESCRIPTION": {
+          "@Common.Label": "{i18n>description}",
+          "@cds.persistence.name": "DESCRIPTION",
+          "type": "cds.String"
+        }
+      }
+    },
+    "teched.dat365.user": {
+      "kind": "entity",
+      "@cds.persistence.name": "TECHED_DAT365_USER",
+      "elements": {
+        "id": {
+          "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.String"
+        },
+        "givenName": {
+          "@cds.persistence.name": "GIVENNAME",
+          "type": "cds.String"
+        },
+        "familyName": {
+          "@cds.persistence.name": "FAMILYNAME",
+          "type": "cds.String"
+        },
+        "email": {
+          "@cds.persistence.name": "EMAIL",
+          "type": "cds.String"
+        },
+        "locale": {
+          "@cds.persistence.name": "LOCALE",
+          "type": "cds.String"
+        }
+      }
+    }
+  },
+  "version": {
+    "csn": "1.0"
+  },
+  "meta": {
+    "creator": "CDS Compiler v1.15.0"
+  },
+  "$version": "1.0",
+  "@sql_mapping": "plain"
+}
