@@ -1,0 +1,33 @@
+{
+	"format_version": 1,
+	"imports": [{
+		"target_table": "COMM_FOODS",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "comm_foods.csv",
+			"has_header": true,
+			"dialect": "HANA",
+			"type_config": {
+				"delimiter": "\t"
+			}
+		},
+		"import_settings" : {
+			"include_filter" : []
+		}
+		},
+		{
+		"target_table": "NUTRITION_SCORES",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "scores.csv",
+			"has_header": true,
+			"dialect": "HANA",
+			"type_config": {
+				"delimiter": "\t"
+			}
+		},
+		"import_settings" : {
+			"include_filter" : []
+		}
+		}]
+}		
