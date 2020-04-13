@@ -1,4 +1,4 @@
-# SAP TechEd - DAT365 and HOL365 - End-to-end Application Development for SAP HANA
+# SAP TechEd - DAT365 and HOL365: End-to-End Application Development for SAP HANA
 
 # Description
 This repository contains supporting material for hands-on session DAT365 and Online session HOL365 at SAP TechEd. 
@@ -13,5 +13,5 @@ Installation instructions are provided during the hands-on sessions.
 This repository cannot currently be installed outside the context of DAT365 and HOL365.
 
 # License
-Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the SAP Sample Code License except as noted otherwise in the LICENSE file.
+Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE file).
 
