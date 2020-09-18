@@ -1,5 +1,7 @@
 # SAP TechEd - DAT365 and HOL365: End-to-End Application Development for SAP HANA
 
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/teched2019-hana-cloud-dat365-native-development/)](https://api.reuse.software/info/github.com/SAP-samples/teched2019-hana-cloud-dat365-native-development/)
+
 # Description
 This repository contains supporting material for hands-on session DAT365 and Online session HOL365 at SAP TechEd. 
 If you could not sign up or attend those sessions, we suggest visiting the Developer Garage to follow hands-on exercises.
